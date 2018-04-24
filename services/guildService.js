@@ -1,6 +1,6 @@
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
-const url = 'mongodb://localhost:27017/GuildInfo';
+const url = 'mongodb://144.202.60.128:27017:27017/GuildInfo';
 
 class GuildService{
 	
