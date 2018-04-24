@@ -1,6 +1,6 @@
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
-const url = 'mongodb://144.202.60.128:27017:27017/GuildInfo';
+const url = 'mongodb://aiun:9980054a@144.202.60.128:27017/GuildInfo?authSource=admin';
 
 class GuildService{
 	
@@ -25,7 +25,7 @@ class GuildService{
 		let self = this;
 		let guildData = this.req.body;
 		try{
-			MongoClient.connect(url, function(err, db) {
+			MongoClient.connect(url,function(err, db) {
 				assert.equal(null, err);
 			  	self.insert(guildData, db, function(){
 					  db.close()
@@ -48,7 +48,7 @@ class GuildService{
 		let self = this;
 		let query = this.req.body
 		try{
-			MongoClient.connect(url, function(err, db) {
+			MongoClient.connect(url,function(err, db) {
 				assert.equal(null, err);
 			  	
 			  	var cursor = db.collection('Guild').findOne(query,function(err,result){
@@ -80,7 +80,7 @@ class GuildService{
 		let query = this.req.body.query;
 		let newData = this.req.body.data;
 		try{
-			MongoClient.connect(url, function(err, db) {
+			MongoClient.connect(url,function(err, db) {
 				assert.equal(null, err);
 				db.collection("Guild").updateOne(query, newData, function(err, res) {
 					if (err){
