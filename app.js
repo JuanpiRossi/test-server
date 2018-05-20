@@ -28,6 +28,41 @@ app.post('/api/updateGuild', function (req, res) {
   guildServiceObj.updateGuild()
 })
 
+app.post('/api/addPlayer', function (req, res) {
+  let guildServiceObj = new guildService(req, res)
+  guildServiceObj.addPlayer()
+})
+
+app.post('/api/addPlayers', function (req, res) {
+  let guildServiceObj = new guildService(req, res)
+  guildServiceObj.addPlayers()
+})
+
+app.post('/api/getPlayer', function (req, res) {
+  let guildServiceObj = new guildService(req, res)
+  guildServiceObj.getPlayer()
+})
+
+app.post('/api/getPlayers', function (req, res) {
+  let guildServiceObj = new guildService(req, res)
+  guildServiceObj.getPlayers()
+})
+
+app.get('/api/getPlayerSorted', function (req, res) {
+  let guildServiceObj = new guildService(req, res)
+  guildServiceObj.getPlayerSorted()
+})
+
+app.get('/api/removePlayers/rbnviryuvbiub9uh9febf932fufenfjaebnfq3uif', function (req, res) {
+  let guildServiceObj = new guildService(req, res)
+  guildServiceObj.removePlayers()
+})
+
+app.post('/api/removePlayer/f48y3g48fcg24f823ybfc8792f2b842', function (req, res) {
+  let guildServiceObj = new guildService(req, res)
+  guildServiceObj.removePlayer()
+})
+
 app.listen(3000, function () {
   console.log('Guild api listening on port 3000!!')
 })
