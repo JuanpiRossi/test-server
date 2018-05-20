@@ -63,6 +63,16 @@ app.post('/api/removePlayer/f48y3g48fcg24f823ybfc8792f2b842', function (req, res
   guildServiceObj.removePlayer()
 })
 
+app.get('/api/getGuidesReduced', function (req, res) {
+  let guildServiceObj = new guildService(req, res)
+  guildServiceObj.getGuidesReduced()
+})
+
+app.post('/api/getGuide', function (req, res) {
+  let guildServiceObj = new guildService(req, res)
+  guildServiceObj.getGuide()
+})
+
 app.listen(3000, function () {
   console.log('Guild api listening on port 3000!!')
 })

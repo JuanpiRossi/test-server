@@ -317,5 +317,68 @@ class GuildService{
 			})
 		}
 	}
+
+	getGuidesReduced(){
+		console.log("getting guides reduced")
+		let self = this;
+		try{
+			MongoClient.connect(url, function(err, db) {
+				assert.equal(null, err);
+			  	
+			  	var cursor = db.collection('Guides').find({}).project({"name":1,"img":1,"show":1,"id":1}).toArray(function(err,result){
+						if (err){
+						return self.res.status(500).json({
+							status: 'error',
+							error: err
+						})}
+						let guildData = result;
+						db.close()
+						return self.res.status(200).json({
+							status: 'success',
+							data: guildData
+						})
+				  });
+			});
+		}
+		catch(error){
+			console.log(error)
+			return self.res.status(500).json({
+				status: 'error',
+				error: error
+			})
+		}
+	}
+
+	getGuide(){
+		console.log("getting guide")
+		let self = this;
+		let query = this.req.body
+		try{
+			MongoClient.connect(url, function(err, db) {
+				assert.equal(null, err);
+			  	
+			  	var cursor = db.collection('Guides').findOne(query,function(err,result){
+						if (err){
+						return self.res.status(500).json({
+							status: 'error',
+							error: err
+						})}
+						let guildData = result;
+						db.close()
+						return self.res.status(200).json({
+							status: 'success',
+							data: guildData
+						})
+				  });
+			});
+		}
+		catch(error){
+			console.log(error)
+			return self.res.status(500).json({
+				status: 'error',
+				error: error
+			})
+		}
+	}
 }
 module.exports = GuildService
