@@ -9,8 +9,14 @@ class GuildService{
 		this.res = res
 	}
 
-	insert(GuildData, db, callback){
-		db.collection('Guild').insertOne(GuildData, function(){
+	insert(collection,data, db, callback){
+		db.collection(collection).insertOne(data, function(){
+			callback()		
+		})
+	}
+
+	insertMany(collection,data, db, callback){
+		db.collection(collection).insertMany(data, function(){
 			callback()		
 		})
 	}
@@ -25,9 +31,9 @@ class GuildService{
 		let self = this;
 		let guildData = this.req.body;
 		try{
-			MongoClient.connect(url,function(err, db) {
+			MongoClient.connect(url, function(err, db) {
 				assert.equal(null, err);
-			  	self.insert(guildData, db, function(){
+			  	self.insert('guild',guildData, db, function(){
 					  db.close()
 			  		return self.res.status(200).json({
 						status: 'success'
@@ -36,6 +42,7 @@ class GuildService{
 			});
 		}
 		catch(error){
+			console.log(error)
 			return self.res.status(500).json({
 				status: 'error',
 				error: error
@@ -48,7 +55,7 @@ class GuildService{
 		let self = this;
 		let query = this.req.body
 		try{
-			MongoClient.connect(url,function(err, db) {
+			MongoClient.connect(url, function(err, db) {
 				assert.equal(null, err);
 			  	
 			  	var cursor = db.collection('Guild').findOne(query,function(err,result){
@@ -67,6 +74,7 @@ class GuildService{
 			});
 		}
 		catch(error){
+			console.log(error)
 			return self.res.status(500).json({
 				status: 'error',
 				error: error
@@ -80,7 +88,7 @@ class GuildService{
 		let query = this.req.body.query;
 		let newData = this.req.body.data;
 		try{
-			MongoClient.connect(url,function(err, db) {
+			MongoClient.connect(url, function(err, db) {
 				assert.equal(null, err);
 				db.collection("Guild").updateOne(query, newData, function(err, res) {
 					if (err){
@@ -97,6 +105,212 @@ class GuildService{
 			});
 		}
 		catch(error){
+			console.log(error)
+			return self.res.status(500).json({
+				status: 'error',
+				error: error
+			})
+		}
+	}
+
+	addPlayer()	{
+		console.log("adding player")
+		let self = this;
+		let playerData = this.req.body;
+		try{
+			MongoClient.connect(url, function(err, db) {
+				assert.equal(null, err);
+			  	self.insert("players",playerData, db, function(){
+					  db.close()
+			  		return self.res.status(200).json({
+						status: 'success'
+					})
+			  	})
+			});
+		}
+		catch(error){
+			console.log(error)
+			return self.res.status(500).json({
+				status: 'error',
+				error: error
+			})
+		}
+	}
+
+	addPlayers()	{
+		console.log("adding players")
+		let self = this;
+		let playerList = this.req.body;
+		try{
+			MongoClient.connect(url, function(err, db) {
+				assert.equal(null, err);
+			  	self.insertMany("players",playerList, db, function(){
+					  db.close()
+			  		return self.res.status(200).json({
+						status: 'success'
+					})
+			  	})
+			});
+		}
+		catch(error){
+			console.log(error)
+			return self.res.status(500).json({
+				status: 'error',
+				error: error
+			})
+		}
+	}
+
+	getPlayer()	{
+		console.log("getting player")
+		let self = this;
+		let query = this.req.body
+		try{
+			MongoClient.connect(url, function(err, db) {
+				assert.equal(null, err);
+			  	
+			  	var cursor = db.collection('players').find(query).sort({secuence:-1}).toArray(function(err,result){
+						if (err){
+						return self.res.status(500).json({
+							status: 'error',
+							error: err
+						})}
+						let guildData = result;
+						db.close()
+						return self.res.status(200).json({
+							status: 'success',
+							data: guildData[0]
+						})
+				  });
+			});
+		}
+		catch(error){
+			console.log(error)
+			return self.res.status(500).json({
+				status: 'error',
+				error: error
+			})
+		}
+	}
+
+	getPlayers()	{
+		console.log("getting players")
+		let self = this;
+		let query = this.req.body
+		try{
+			MongoClient.connect(url, function(err, db) {
+				assert.equal(null, err);
+			  	var cursor = db.collection('players').find(query).sort({secuence:-1}).toArray(function(err,result){
+						if (err){
+						return self.res.status(500).json({
+							status: 'error',
+							error: err
+						})}
+						let guildData = result;
+						db.close()
+						return self.res.status(200).json({
+							status: 'success',
+							data: guildData
+						})
+				  });
+			});
+		}
+		catch(error){
+			console.log(error)
+			return self.res.status(500).json({
+				status: 'error',
+				error: error
+			})
+		}
+	}
+
+	getPlayerSorted()	{
+		console.log("getting players sorted")
+		let self = this;
+		let query = this.req.body
+		try{
+			MongoClient.connect(url, function(err, db) {
+				assert.equal(null, err);
+			  	var cursor = db.collection('players').find().sort({secuence:-1}).toArray(function(err,result){
+						if (err){
+						return self.res.status(500).json({
+							status: 'error',
+							error: err
+						})}
+						let guildData = result;
+						db.close()
+						return self.res.status(200).json({
+							status: 'success',
+							data: guildData[0]
+						})
+				  });
+			});
+		}
+		catch(error){
+			console.log(error)
+			return self.res.status(500).json({
+				status: 'error',
+				error: error
+			})
+		}
+	}
+	
+	removePlayers()	{
+		console.log("removing players")
+		let self = this;
+		try{
+			MongoClient.connect(url, function(err, db) {
+				assert.equal(null, err);
+			  	
+			  	var cursor = db.collection('players').remove({},function(err,result){
+						if (err){
+						return self.res.status(500).json({
+							status: 'error',
+							error: err
+						})}
+						let guildData = result;
+						db.close()
+						return self.res.status(200).json({
+							status: 'success',
+							data: guildData
+						})
+				  });
+			});
+		}
+		catch(error){
+			console.log(error)
+			return self.res.status(500).json({
+				status: 'error',
+				error: error
+			})
+		}
+	}
+
+	removePlayer()	{
+		console.log("removing player")
+		let self = this;
+		let query = this.req.body
+		try{
+			MongoClient.connect(url, function(err, db) {
+				assert.equal(null, err);
+			  	
+			  	var cursor = db.collection('players').remove(query,function(err,result){
+						if (err){
+						return self.res.status(500).json({
+							status: 'error',
+							error: err
+						})}
+						let guildData = result;
+						db.close()
+						return self.res.status(200).json({
+							status: 'success',
+							data: guildData
+						})
+				  });
+			});
+		}
+		catch(error){
+			console.log(error)
 			return self.res.status(500).json({
 				status: 'error',
 				error: error
