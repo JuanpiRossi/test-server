@@ -325,7 +325,7 @@ class GuildService{
 			MongoClient.connect(url, function(err, db) {
 				assert.equal(null, err);
 			  	
-			  	var cursor = db.collection('Guides').find({}).project({"name":1,"img":1,"show":1,"id":1}).toArray(function(err,result){
+			  	var cursor = db.collection('Guides').find({}).project({"name":1,"img":1,"show":1,"id":1}).sort({order:-1}).toArray(function(err,result){
 						if (err){
 						return self.res.status(500).json({
 							status: 'error',
@@ -336,6 +336,37 @@ class GuildService{
 						return self.res.status(200).json({
 							status: 'success',
 							data: guildData
+						})
+				  });
+			});
+		}
+		catch(error){
+			console.log(error)
+			return self.res.status(500).json({
+				status: 'error',
+				error: error
+			})
+		}
+	}
+
+	getGuidesOrderNumer(){
+		console.log("getting guides order")
+		let self = this;
+		try{
+			MongoClient.connect(url, function(err, db) {
+				assert.equal(null, err);
+			  	
+			  	var cursor = db.collection('Guides').find({}).project({"order":1}).sort({order:-1}).toArray(function(err,result){
+						if (err){
+						return self.res.status(500).json({
+							status: 'error',
+							error: err
+						})}
+						let guildData = result;
+						db.close()
+						return self.res.status(200).json({
+							status: 'success',
+							data: guildData[0]
 						})
 				  });
 			});
@@ -370,6 +401,30 @@ class GuildService{
 							data: guildData
 						})
 				  });
+			});
+		}
+		catch(error){
+			console.log(error)
+			return self.res.status(500).json({
+				status: 'error',
+				error: error
+			})
+		}
+	}
+
+	addGuide()	{
+		console.log("adding guides")
+		let self = this;
+		let data = this.req.body;
+		try{
+			MongoClient.connect(url, function(err, db) {
+				assert.equal(null, err);
+			  	self.insert("Guides",data, db, function(){
+					  db.close()
+			  		return self.res.status(200).json({
+						status: 'success'
+					})
+			  	})
 			});
 		}
 		catch(error){

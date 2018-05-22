@@ -9,70 +9,144 @@ app.use(bodyParser.urlencoded({ extended : false}))
 app.use(cors())
 
 app.get('/api/alive', function (req, res) {
-  let guildServiceObj = new guildService(req, res)
-  guildServiceObj.alive()
+  try {
+    let guildServiceObj = new guildService(req, res)
+    guildServiceObj.alive()
+  } catch(error) {
+    console.error(error);
+  }
 })
 
 app.post('/api/addGuild', function (req, res) {
-  let guildServiceObj = new guildService(req, res)
-  guildServiceObj.addGuild()
+  try {
+    let guildServiceObj = new guildService(req, res)
+    guildServiceObj.addGuild()
+  } catch(error) {
+    console.error(error);
+  }
 })
 
 app.post('/api/getGuild', function (req, res) {
-  let guildServiceObj = new guildService(req, res)
-  guildServiceObj.getGuild()
+  try {
+    let guildServiceObj = new guildService(req, res)
+    guildServiceObj.getGuild()
+  } catch(error) {
+    console.error(error);
+  }
 })
 
 app.post('/api/updateGuild', function (req, res) {
-  let guildServiceObj = new guildService(req, res)
-  guildServiceObj.updateGuild()
+  try {
+    let guildServiceObj = new guildService(req, res)
+    guildServiceObj.updateGuild()
+  } catch(error) {
+    console.error(error);
+  }
 })
 
 app.post('/api/addPlayer', function (req, res) {
-  let guildServiceObj = new guildService(req, res)
-  guildServiceObj.addPlayer()
+  try {
+    let guildServiceObj = new guildService(req, res)
+    guildServiceObj.addPlayer()
+  } catch(error) {
+    console.error(error);
+  }
 })
 
 app.post('/api/addPlayers', function (req, res) {
-  let guildServiceObj = new guildService(req, res)
-  guildServiceObj.addPlayers()
+  try {
+    let guildServiceObj = new guildService(req, res)
+    guildServiceObj.addPlayers()
+  } catch(error) {
+    console.error(error);
+  }
 })
 
 app.post('/api/getPlayer', function (req, res) {
-  let guildServiceObj = new guildService(req, res)
-  guildServiceObj.getPlayer()
+  try {
+    let guildServiceObj = new guildService(req, res)
+    guildServiceObj.getPlayer()
+  } catch(error) {
+    console.error(error);
+  }
 })
 
 app.post('/api/getPlayers', function (req, res) {
-  let guildServiceObj = new guildService(req, res)
-  guildServiceObj.getPlayers()
+  try {
+    let guildServiceObj = new guildService(req, res)
+    guildServiceObj.getPlayers()
+  } catch(error) {
+    console.error(error);
+  }
 })
 
 app.get('/api/getPlayerSorted', function (req, res) {
-  let guildServiceObj = new guildService(req, res)
-  guildServiceObj.getPlayerSorted()
+  try {
+    let guildServiceObj = new guildService(req, res)
+    guildServiceObj.getPlayerSorted()
+  } catch(error) {
+    console.error(error);
+  }
 })
 
 app.get('/api/removePlayers/rbnviryuvbiub9uh9febf932fufenfjaebnfq3uif', function (req, res) {
-  let guildServiceObj = new guildService(req, res)
-  guildServiceObj.removePlayers()
+  try {
+    let guildServiceObj = new guildService(req, res)
+    guildServiceObj.removePlayers()
+  } catch(error) {
+    console.error(error);
+  }
 })
 
 app.post('/api/removePlayer/f48y3g48fcg24f823ybfc8792f2b842', function (req, res) {
-  let guildServiceObj = new guildService(req, res)
-  guildServiceObj.removePlayer()
+  try {
+    let guildServiceObj = new guildService(req, res)
+    guildServiceObj.removePlayer()
+  } catch(error) {
+    console.error(error);
+  }
 })
 
 app.get('/api/getGuidesReduced', function (req, res) {
-  let guildServiceObj = new guildService(req, res)
-  guildServiceObj.getGuidesReduced()
+  try {
+    let guildServiceObj = new guildService(req, res)
+    guildServiceObj.getGuidesReduced()
+  } catch(error) {
+    console.error(error);
+  }
 })
 
 app.post('/api/getGuide', function (req, res) {
-  let guildServiceObj = new guildService(req, res)
-  guildServiceObj.getGuide()
+  try {
+    let guildServiceObj = new guildService(req, res)
+    guildServiceObj.getGuide()
+  } catch(error) {
+    console.error(error);
+  }
+})
+
+app.post('/api/addGuide', function (req, res) {
+  try {
+    let guildServiceObj = new guildService(req, res)
+    guildServiceObj.addGuide()
+  } catch(error) {
+    console.error(error);
+  }
+})
+
+app.get('/api/getGuidesOrderNumer', function (req, res) {
+  try {
+    let guildServiceObj = new guildService(req, res)
+    guildServiceObj.getGuidesOrderNumer()
+  } catch(error) {
+    console.error(error);
+  }
 })
 
 app.listen(3000, function () {
-  console.log('Guild api listening on port 3000!!')
+  try {
+    console.log('Guild api listening on port 3000!!')
+  } catch(error) {
+  console.error(error);
+  }
 })
