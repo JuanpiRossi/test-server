@@ -435,5 +435,37 @@ class GuildService{
 			})
 		}
 	}
+
+	updateGuide(){
+		console.log("updating guide")
+		let self = this;
+		let data = this.req.body
+		try{
+			MongoClient.connect(url, function(err, db) {
+				assert.equal(null, err);
+			  	
+			  	var cursor = db.collection('Guides').updateOne(data["query"],data["update"],function(err,result){
+						if (err){
+						return self.res.status(500).json({
+							status: 'error',
+							error: err
+						})}
+						let guildData = result;
+						db.close()
+						return self.res.status(200).json({
+							status: 'success',
+							data: guildData
+						})
+				  });
+			});
+		}
+		catch(error){
+			console.log(error)
+			return self.res.status(500).json({
+				status: 'error',
+				error: error
+			})
+		}
+	}
 }
 module.exports = GuildService

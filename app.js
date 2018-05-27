@@ -143,6 +143,15 @@ app.get('/api/getGuidesOrderNumer', function (req, res) {
   }
 })
 
+app.post('/api/updateGuide', function (req, res) {
+  try {
+    let guildServiceObj = new guildService(req, res)
+    guildServiceObj.updateGuide()
+  } catch(error) {
+    console.error(error);
+  }
+})
+
 app.listen(3000, function () {
   try {
     console.log('Guild api listening on port 3000!!')
